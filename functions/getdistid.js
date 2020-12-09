@@ -2,14 +2,10 @@
  * Get distributor id from back office
  * @param {*} repId
  */
-const getDistributorId = (repId) => {
-  const API_URL = '/backoffice/users';
-  const options = { headers: { 'x-company-code': 'XBU' } };
-
-  return fetch(`${API_URL}${repId}`, options).then(
+const getDistributorId = (repId) =>
+  fetch(`/backoffice/users${repId}`).then(
     (response) => response.json().distributorId
   );
-};
 
 const handler = async (event) => {
   try {

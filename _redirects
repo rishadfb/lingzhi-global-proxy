@@ -1,2 +1,0 @@
-/backoffice/users https://backoffice.lingzhiglobal.com/api/v2/public/users/ 200
-/api/* /.netlify/functions/:splat 200

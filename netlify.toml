@@ -1,3 +1,15 @@
 [build]
     publish = "dist"
     functions = "functions"
+
+[[redirects]]
+    from = "/backoffice/users"
+    to = "https://backoffice.lingzhiglobal.com/api/v2/public/users/"
+    status = 200
+    force = true
+    headers = {x-company-code = "XBU"}
+
+[[redirects]]
+    from = "/api/*"
+    to = "/.netlify/functions/:splat"
+    status = 200
