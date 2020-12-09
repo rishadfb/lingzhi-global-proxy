@@ -1,15 +1,36 @@
-exports.handler = async function (event, context) {
-  const API_URL = '/api/backoffice/users';
+/**
+ * Get distributor id from back office
+ * @param {*} repId
+ */
+const getDistributorId = (repId) => {
+  const API_URL = '/backoffice/users';
   const options = { headers: { 'x-company-code': 'XBU' } };
-  const { method, body } = event;
 
-  // Get distributor id from back office
-  const getDistributorId = (repId) =>
-    fetch(`${API_URL}${repId}`, options).then((response) => ({
-      dist_id: response.json().distributorId,
-    }));
+  return fetch(`${API_URL}${repId}`, options).then(
+    (response) => response.json().distributorId
+  );
+};
 
-  if (method === 'POST') {
-    return await getDistributorId(body.dist_id);
+const handler = async (event) => {
+  try {
+    const { body, method } = event;
+
+    if (method === 'POST') {
+      const distId = await getDistributorId(body.rep_id);
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ dist_id: distId }),
+      };
+    }
+
+    return {
+      statusCode: 200,
+      body: 'Welcome to the Lingzhi Global Proxy API.',
+    };
+  } catch (error) {
+    return { statusCode: 500, body: error.toString() };
   }
 };
+
+module.exports = { handler };
