@@ -7,6 +7,7 @@
     to = "https://backoffice.lingzhiglobal.com/api/v2/public/users/"
     status = 200
     force = true
+
     [redirects.headers]
         x-company-code = "XBU"
 
@@ -14,5 +15,6 @@
     from = "/api/*"
     to = "/.netlify/functions/:splat"
     status = 200
+    
     [redirects.headers]
         Access-Control-Allow-Origin = "*"
