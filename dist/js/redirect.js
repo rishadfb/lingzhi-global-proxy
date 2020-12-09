@@ -1,4 +1,4 @@
-const getDistributorId = async (repId) =>
+const getDistributorId = (repId) =>
   fetch('/api/getdistid', {
     method: 'POST',
     body: JSON.stringify({ rep_id: repId }),
