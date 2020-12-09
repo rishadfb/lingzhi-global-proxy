@@ -19,6 +19,9 @@ const handler = async (event) => {
       return {
         statusCode: 200,
         body: JSON.stringify({ dist_id: distId }),
+        headers: {
+          'access-control-allow-origin': '*',
+        },
       };
     }
 
