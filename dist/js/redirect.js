@@ -1,5 +1,5 @@
-const getDistributorId = (repId) =>
-  fetch('/api/getdistid', {
+const getDistributorId = async (repId) =>
+  await fetch('/api/getdistid', {
     method: 'POST',
     body: JSON.stringify({ rep_id: repId }),
   }).then((response) => response.json().dist_id);
