@@ -5,5 +5,8 @@
   "main": "index.js",
   "keywords": [],
   "author": "Rishad Bharucha",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
 }

@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const getDistributorId = (repId) =>
   fetch('https://lingzhi-global-proxy.netlify.app/api/getdistid', {
     method: 'POST',
