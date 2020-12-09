@@ -20,28 +20,57 @@ const getDistributorId = (repId) =>
     .get(repId)
     .then((response) => ({ dist_id: response.data.response.distributorId }));
 
-const handler = async (event) => {
+/**
+ * Handle post request
+ * @param {*} body
+ */
+const handlePost = async (body) => {
+  const repId = JSON.parse(body).rep_id;
+  const response = await getDistributorId(repId);
+
+  return {
+    statusCode: 200,
+    headers,
+    body: JSON.stringify(response),
+  };
+};
+
+/**
+ * Handle get request
+ */
+const handleGet = () => ({
+  statusCode: 200,
+  headers,
+  body: 'Welcome to the Lingzhi Global Proxy API.',
+});
+
+/**
+ * Handle request error
+ * @param {*} error
+ */
+const handleError = (error) => ({
+  statusCode: 500,
+  headers,
+  body: error.toString(),
+});
+
+/**
+ * Main event handler
+ * @param {*} event
+ */
+const handler = (event) => {
   try {
     const { body, httpMethod } = event;
-    const repId = JSON.parse(body).rep_id;
 
     if (httpMethod === 'POST') {
-      const response = await getDistributorId(repId);
-
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify(response),
-      };
+      return handlePost(body);
     }
 
-    return {
-      statusCode: 200,
-      headers,
-      body: 'Welcome to the Lingzhi Global Proxy API.',
-    };
+    if (httpMethod === 'GET') {
+      return handleGet();
+    }
   } catch (error) {
-    return { statusCode: 500, headers, body: error.toString() };
+    return handleError(error);
   }
 };
 
