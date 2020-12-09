@@ -1,37 +1,27 @@
-function getDistributorId(repId) {
-  var xmlHttp = new XMLHttpRequest();
-  var api =
-    'https://cors-anywhere.herokuapp.com/https://backoffice.lingzhiglobal.com/api/v2/public/users/';
-  var url = api + repId;
+const getDistributorId = async (repId) =>
+  fetch('/api/getdistid', {
+    method: 'POST',
+    body: JSON.stringify({ rep_id: repId }),
+  }).then((response) => response.json().dist_id);
 
-  xmlHttp.open('GET', url, false);
-  xmlHttp.setRequestHeader('x-company-code', 'XBU');
-  xmlHttp.send(null);
-
-  var json = JSON.parse(xmlHttp.responseText);
-
-  if (json.meta.code === 200) {
-    return json.response.distributorId;
-  } else {
-    return undefined;
-  }
-}
-
-function redirectUrl(distId) {
-  var url =
-    window.location.protocol + '//' + window.location.host + '/?rep=' + distId;
+const redirectUrl = (distId) => {
+  const url = `${window.location.protocol}//${window.location.host}/?rep=${distId}`;
   window.location.replace(url);
+};
+
+const updateStorage = ({ repName, distId }) => {
+  sessionStorage.setItem('lg_rep_id', repName);
+  sessionStorage.setItem('lg_dist_id', distId);
 }
 
-function handleRepName() {
-  var repName = window.location.pathname.split('/')[1];
+const handleRepName = () => {
+  const repName = window.location.pathname.split('/')[1];
 
   if (repName.length > 0) {
-    var distId = getDistributorId(repName);
+    const distId = await getDistributorId(repName);
 
     if (distId) {
-      sessionStorage.setItem('lg_rep_id', repName);
-      sessionStorage.setItem('lg_dist_id', distId);
+      updateStorage({ repName, distId })
       redirectUrl(repName);
     }
   }
