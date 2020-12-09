@@ -1,5 +1,5 @@
-const getDistributorId = async (repId) =>
-  await fetch('/api/getdistid', {
+const getDistributorId = (repId) =>
+  fetch('/api/getdistid', {
     method: 'POST',
     body: JSON.stringify({ rep_id: repId }),
   }).then((response) => response.json().dist_id);
@@ -12,19 +12,19 @@ const redirectUrl = (distId) => {
 const updateStorage = ({ repName, distId }) => {
   sessionStorage.setItem('lg_rep_id', repName);
   sessionStorage.setItem('lg_dist_id', distId);
-}
+};
 
-const handleRepName = () => {
+const handleRepName = async () => {
   const repName = window.location.pathname.split('/')[1];
 
   if (repName.length > 0) {
     const distId = await getDistributorId(repName);
 
     if (distId) {
-      updateStorage({ repName, distId })
+      updateStorage({ repName, distId });
       redirectUrl(repName);
     }
   }
-}
+};
 
 handleRepName();
