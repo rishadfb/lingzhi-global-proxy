@@ -18,7 +18,7 @@ const headers = {
 const getDistributorId = (repId) =>
   backoffice
     .get(repId)
-    .then((response) => response.data.response.distributorId);
+    .then((response) => ({ dist_id: response.data.response.distributorId }));
 
 const handler = async (event) => {
   try {
@@ -31,7 +31,7 @@ const handler = async (event) => {
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ dist_id: response }),
+        body: JSON.stringify(response),
       };
     }
 
