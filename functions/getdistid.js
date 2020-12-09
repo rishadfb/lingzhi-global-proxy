@@ -1,5 +1,11 @@
 const fetch = require('node-fetch');
 
+const headers = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+};
+
 /**
  * Get distributor id from back office
  * @param {*} repId
@@ -18,12 +24,14 @@ const handler = async (event) => {
 
       return {
         statusCode: 200,
+        headers,
         body: JSON.stringify({ dist_id: distId }),
       };
     }
 
     return {
       statusCode: 200,
+      headers,
       body: 'Welcome to the Lingzhi Global Proxy API.',
     };
   } catch (error) {
