@@ -1,6 +1,5 @@
-'use strict';
-function getQueryStringValue(key) {
-  return decodeURIComponent(
+const getQueryStringValue = (key) =>
+  decodeURIComponent(
     window.location.search.replace(
       new RegExp(
         '^(?:.*[&\\?]' +
@@ -11,21 +10,20 @@ function getQueryStringValue(key) {
       '$1'
     )
   );
-}
 
-function setSignupLink(distId) {
+const setSignupLink = (distId) => {
   var link = document.getElementById('signup-consultant');
   var linkHref = link.getAttribute('href');
   var newUrl = linkHref + '?sponsor_id=' + distId;
   link.setAttribute('href', newUrl);
-}
+};
 
-function retrieveDistId() {
-  var distId = sessionStorage.getItem('lg_dist_id');
+const retrieveDistId = () => {
+  const distId = sessionStorage.getItem('lg_dist_id');
 
   if (distId) {
     setSignupLink(distId);
   }
-}
+};
 
 retrieveDistId();
