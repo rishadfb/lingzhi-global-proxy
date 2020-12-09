@@ -1,3 +1,10 @@
+const axios = require('axios');
+
+const backoffice = axios.create({
+  baseURL: 'https://backoffice.lingzhiglobal.com/api/v2/public/users/',
+  headers: { 'x-company-code': 'XBU' },
+});
+
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -9,21 +16,22 @@ const headers = {
  * @param {*} repId
  */
 const getDistributorId = (repId) =>
-  fetch(`/backoffice/users${repId}`).then(
-    (response) => response.json().distributorId
-  );
+  backoffice
+    .get(repId)
+    .then((response) => response.data.response.distributorId);
 
 const handler = async (event) => {
   try {
     const { body, httpMethod } = event;
+    const repId = JSON.parse(body).rep_id;
 
     if (httpMethod === 'POST') {
-      const distId = await getDistributorId(body.rep_id);
+      const response = await getDistributorId(repId);
 
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ dist_id: distId }),
+        body: JSON.stringify({ dist_id: response }),
       };
     }
 
@@ -33,7 +41,7 @@ const handler = async (event) => {
       body: 'Welcome to the Lingzhi Global Proxy API.',
     };
   } catch (error) {
-    return { statusCode: 500, body: error.toString() };
+    return { statusCode: 500, headers, body: error.toString() };
   }
 };
 

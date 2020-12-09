@@ -3,7 +3,7 @@
     functions = "functions"
 
 [[redirects]]
-    from = "/backoffice/users"
+    from = "/backoffice/users/"
     to = "https://backoffice.lingzhiglobal.com/api/v2/public/users/"
     status = 200
     force = true
