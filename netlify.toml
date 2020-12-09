@@ -9,7 +9,6 @@
     force = true
     [redirects.headers]
         x-company-code = "XBU"
-        Access-Control-Allow-Origin = "*"
 
 [[redirects]]
     from = "/api/*"
