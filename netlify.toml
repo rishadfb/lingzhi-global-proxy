@@ -7,14 +7,11 @@
     to = "https://backoffice.lingzhiglobal.com/api/v2/public/users/"
     status = 200
     force = true
-    headers = {x-company-code = "XBU"}
+    [redirects.headers]
+        x-company-code = "XBU"
+        Access-Control-Allow-Origin = "https://www.lingzhiglobal.com"
 
 [[redirects]]
     from = "/api/*"
     to = "/.netlify/functions/:splat"
     status = 200
-
-[[headers]]
-    for = "/*"
-        [headers.values]
-        Access-Control-Allow-Origin = "https://www.lingzhiglobal.com"
