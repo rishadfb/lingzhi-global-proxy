@@ -17,9 +17,9 @@ const getDistributorId = (repId) =>
 
 const handler = async (event) => {
   try {
-    const { body, method } = event;
+    const { body, httpMethod } = event;
 
-    if (method === 'POST') {
+    if (httpMethod === 'POST') {
       const distId = await getDistributorId(body.rep_id);
 
       return {
