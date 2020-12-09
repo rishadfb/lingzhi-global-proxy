@@ -1,7 +1,7 @@
 const getDistributorId = (repId) =>
   fetch('https://lingzhi-global-proxy.netlify.app/api/getdistid', {
     method: 'POST',
-    mode: 'cors',
+    headers: { 'Access-Control-Allow-Origin': '*' },
     body: JSON.stringify({ rep_id: repId }),
   }).then((response) => response.json().dist_id);
 
