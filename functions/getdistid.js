@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 /**
  * Get distributor id from back office
  * @param {*} repId
