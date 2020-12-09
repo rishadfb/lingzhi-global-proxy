@@ -9,7 +9,7 @@
     force = true
     [redirects.headers]
         x-company-code = "XBU"
-        Access-Control-Allow-Origin = "https://www.lingzhiglobal.com"
+        Access-Control-Allow-Origin = "*"
 
 [[redirects]]
     from = "/api/*"
