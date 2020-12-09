@@ -1,11 +1,11 @@
 const getDistributorId = async (repId) => {
   const url = 'https://lingzhi-global-proxy.netlify.app/api/getdistid';
-  const options = {
-    method: 'POST',
-    body: JSON.stringify({ rep_id: repId }),
-  };
+  const body = JSON.stringify({ rep_id: repId });
+  const options = { method: 'POST', body };
+
   const response = await fetch(url, options);
   const data = await response.json();
+
   return data.dist_id;
 };
 
